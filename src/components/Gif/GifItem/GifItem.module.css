@@ -1,0 +1,20 @@
+.GifContainer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  
+  .Img {
+    box-sizing: border-box;
+    height: 95px;
+    width: 175px;
+    display: -moz-box;
+    margin-top: 10px;
+    outline: #a28ece;
+  }
+  
+  .Img:focus {
+    outline: #a28ece;
+  }
+  

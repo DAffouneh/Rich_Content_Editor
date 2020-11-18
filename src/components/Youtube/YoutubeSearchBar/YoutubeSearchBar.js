@@ -28,8 +28,6 @@ const YoutubeSearchBar = (props) => {
   const onKeyPressedHandler = (event) => {
     if (event.key === "Enter") {
       clickHandel(event);
-    } else if (event.key === "Escape") {
-      deleteSearchValue();
     }
   };
   return (
