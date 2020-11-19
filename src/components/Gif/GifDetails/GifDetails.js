@@ -1,12 +1,12 @@
 import React from "react";
-import classes from "./GifItem.module.css";
-const GifItem = ({ gif ,handleGifSelect}) => {
+import classes from "./GifDetails.module.css";
+const GifDetails = ({ gif }) => {
+  if (!video) {
+    return <div></div>;
+  }
   const gifImageInfo = gif.images.fixed_height_small;
-  const selected = () => {
-    handleGifSelect(gif);
-  };
   return (
-    <div onClick={selected} className={classes.GifContainer}>
+    <div className={classes.Frame}>
       <img
         src={gifImageInfo.url}
         alt={gifImageInfo.slug}
@@ -16,4 +16,4 @@ const GifItem = ({ gif ,handleGifSelect}) => {
     </div>
   );
 };
-export default GifItem;
+export default GifDetails;

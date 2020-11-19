@@ -6,7 +6,6 @@ import GifModal from './UI/GifModal/GifModal';
 import YoutubeSearchBar from "./components/Youtube/YoutubeSearchBar/YoutubeSearchBar";
 import VideoList from "./components/Youtube/VideoList/VideoList";
 import Spinner from "./UI/Spinner/Spinner";
-import VideoDetail from "./components/Youtube/VideoDetail/VideoDetail";
 import YoutubeIcon from "./YouTube.svg";
 import GifIcon from "./Gif.svg";
 import classes from "./App.module.css";
@@ -26,8 +25,11 @@ const App = () => {
   const [term, setTerm] = useState("");
   const [showYoutubeModal, setShowYoutubeModal] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState(null);
+  const [selectedGif,setSelectedGif]=useState(null);
+  const[selctedGifs]=useState([]);
   const [showGifModal,setshowGifModal]=useState(false);
   const [showVideo, setShowVideo] = useState(false);
+  const [showGif,setShowGif]= useState(false);
   const[gifTermSearch,setGifTermSearch]=useState("");
   const[error,setError]=useState("");
   const giphy= GphApiClient("6KcE3OAJhPm3KrUtKUait8PaBac1v3Fq");
@@ -99,7 +101,6 @@ const App = () => {
       setTerm("");
       searchHandler("");
     }
-   // setShowVideo(false);
   };
 
   const modalremovalHandler = () => {
@@ -113,9 +114,17 @@ const App = () => {
   const handleVideoSelect = (video) => {
     setSelectedVideo(video);
     selectedVideos.push(video);
-console.log(selectedVideos)
     setShowVideo(true);
   };
+
+  const handleGifSelect =(gif)=> 
+  {
+setSelectedGif(gif);
+selctedGifs.push(gif);
+setShowGif(true)
+
+  }
+
 
 
   const onSearchChange = (event) => {
@@ -150,9 +159,12 @@ console.log(selectedVideos)
     );
   }
 
+
+
   const spinner = <Spinner></Spinner>;
   let display = null;
   let videodisplayer=null
+  let gifdisplay=null;
   if (showVideo) {
     videodisplayer = (
         <div className={classes.VideoDiv}>
@@ -162,6 +174,16 @@ console.log(selectedVideos)
       
     );
   } 
+  if (showGif) {
+    gifdisplay = (
+        <div className={classes.VideoDiv}>
+            <VideoSelectedList videos={selectedVideos} />
+      </div>
+    
+      
+    );
+  } 
+
   if(showYoutubeModal){
 // console.log("error"+error)
 //     if(error !== "")
@@ -239,7 +261,7 @@ console.log(selectedVideos)
           scrollThreshold={0.6}
           className={classes.Scroll}
         >
-          <GifList gifs={[...gifs]} />
+          <GifList gifs={[...gifs]} handleGifSelect={handleGifSelect} />
         </InfiniteScroll>
       </GifModal>
         </div>
