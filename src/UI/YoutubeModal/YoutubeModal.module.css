@@ -8,10 +8,8 @@
   width: 620px;
   height: 370px;
   z-index: 1000;
-  margin-top: 486px;
   bottom: -10px;
   overflow: scroll;
-  /* margin-top: 20px; */
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
 }
 .Modal::-webkit-scrollbar {

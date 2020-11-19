@@ -13,13 +13,15 @@ import classes from "./App.module.css";
 import GifList from './components/Gif/GifList/GifList';
 import Search from "./search.svg";
 import Cancel from "./cancel.svg";
+import VideoSelectedList from "./components/Youtube/VideoSelectedList/VideoSelectedList";
 
 var GphApiClient = require("giphy-js-sdk-core");
 const App = () => {
-  const KEY = "AIzaSyAMiwTc0WUts2rjpiNX3zI_vk04w6s_SUU";
+  const KEY = "AIzaSyAIFhYnOW6aKIkJaney9DQSF3GH24oIYYI";
   const [pageToken, setPageToken] = useState("CAoQAA");
   const [paginate,setPaginate]=useState(0);
   const [videos, setVideos] = useState([]);
+  const[selectedVideos]=useState([]);
   const [gifs, setGifs] = useState([]);
   const [term, setTerm] = useState("");
   const [showYoutubeModal, setShowYoutubeModal] = useState(false);
@@ -28,7 +30,7 @@ const App = () => {
   const [showVideo, setShowVideo] = useState(false);
   const[gifTermSearch,setGifTermSearch]=useState("");
   const[error,setError]=useState("");
-  const giphy= GphApiClient("ybaPDWvW02i61gblWgdFkxkrsfhsZzhi");
+  const giphy= GphApiClient("6KcE3OAJhPm3KrUtKUait8PaBac1v3Fq");
 
   useEffect(() => {
     searchHandler(term);
@@ -43,9 +45,10 @@ const App = () => {
         `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=8&order=viewCount&pageToken=${pageToken}&q=${termFromSearchBar}&type=video&key=${KEY}`
       )
       .then((res) => {
-        if(res.data.length===0)
+        if(res.data.items.length===0)
         {
           setError("NO RESULTS");
+          console.log("No results"+error)
         }
         else {
           setPageToken(res.data.nextPageToken);
@@ -92,23 +95,25 @@ const App = () => {
 
   const ModalShow = () => {
     setShowYoutubeModal(!showYoutubeModal);
-    if (showYoutubeModal == false) {
+    if (showYoutubeModal === false) {
       setTerm("");
       searchHandler("");
     }
-    setShowVideo(false);
+   // setShowVideo(false);
   };
 
   const modalremovalHandler = () => {
     setShowYoutubeModal(false);
     setshowGifModal(false);
 
-    if (showYoutubeModal == false) {
+    if (showYoutubeModal === false) {
       searchHandler("");
     }
   };
   const handleVideoSelect = (video) => {
     setSelectedVideo(video);
+    selectedVideos.push(video);
+console.log(selectedVideos)
     setShowVideo(true);
   };
 
@@ -147,32 +152,41 @@ const App = () => {
 
   const spinner = <Spinner></Spinner>;
   let display = null;
+  let videodisplayer=null
   if (showVideo) {
-    display = (
-      <div className={classes.VideoDiv}>
-        <VideoDetail video={selectedVideo} />
+    videodisplayer = (
+        <div className={classes.VideoDiv}>
+            <VideoSelectedList videos={selectedVideos} />
       </div>
+    
+      
     );
-  } else if(showYoutubeModal){
-    // if(error !== "")
-    // {
-    //   <YoutubeModal
-    //     show={showYoutubeModal}
-    //     modalClosed={modalremovalHandler}
-    //     modalExitClosed={modalremovalHandler}
-    //   >
-    //     <YoutubeSearchBar
-    //       clickSearchHandeler={searchHandler}
-    //       term={term}
-    //     ></YoutubeSearchBar>
-    //     <p>{error}</p>
-    //     </YoutubeModal>
-    // }
-    // else{
+  } 
+  if(showYoutubeModal){
+// console.log("error"+error)
+//     if(error !== "")
+//     {
+//       display=<div className={classes.youtubeModalContainer}>
+//       <YoutubeModal
+//         show={showYoutubeModal}
+//         modalClosed={modalremovalHandler}
+//         modalExitClosed={modalremovalHandler}
+//       >
+//         <YoutubeSearchBar
+//           clickSearchHandeler={searchHandler}
+//           term={term}
+//         ></YoutubeSearchBar>
+//         <div className={classes.error}>{error}</div>
+//         </YoutubeModal>
+//         </div>
+//     }
+//     else{
       display = (
+        <div className={classes.youtubeModalContainer}>
         <YoutubeModal
           show={showYoutubeModal}
           modalClosed={modalremovalHandler}
+          modalExit={modalremovalHandler}
         >
           <YoutubeSearchBar
             clickSearchHandeler={searchHandler}
@@ -191,20 +205,20 @@ const App = () => {
             <VideoList videos={videos} handleVideoSelect={handleVideoSelect} />
           </InfiniteScroll>
         </YoutubeModal>
+        </div>
+
       );
-    
+    //  }
     
   } else if(showGifModal)
   {
     display = (
-      <div  style={{
-        position:"absolute",
-        top: "-2px;",
-        left: "123px"
-      }}>
+              <div className={classes.gifmodalContainer}>
 <GifModal
         show={showGifModal}
         modalClosed={modalremovalHandler}
+        modalExit={modalremovalHandler}
+
        
       >
         <img src={Search} className={classes.SearchImg}></img>
@@ -228,16 +242,16 @@ const App = () => {
           <GifList gifs={[...gifs]} />
         </InfiniteScroll>
       </GifModal>
-      </div>
-        
+        </div>
       
     );
 
   }
   return (
-    <div style={{ position: "fixed", top: "199px" }}>
-      {display}
-        <div className={classes.footer}>
+    <div>
+      {videodisplayer}  
+      <div className={classes.footer}>
+          {display}
           <img
             className={classes.youtube_icon}
             src={YoutubeIcon}

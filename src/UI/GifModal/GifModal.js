@@ -7,7 +7,7 @@ const Modal = (props) => {
 
     <div>
       <div>
-        <Layout show={props.show} clicked={props.modalClosed} />
+        <Layout show={props.show} clicked={props.modalClosed} exit={props.modalExit} />
         <div className={classes1.InnerDiv} style={{ marginBottom: "-10px" }}>
           <div
             className={classes.Modal}>

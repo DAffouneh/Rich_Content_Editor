@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect, useState} from "react";
 import classes from "./VideoDetail.module.css";
 const VideoDetail = ({ video }) => {
   if (!video) {

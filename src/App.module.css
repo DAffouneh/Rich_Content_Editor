@@ -1,14 +1,32 @@
 .footer {
   margin-top: 1rem;
-  position: fixed;
-  bottom: 4px;
+  position: relative;
   width: 300px;
   border-bottom: 1px solid black;
   border-top: 1px solid black;
   display: flex;
   flex-direction: row;
   padding: 5px;
-  margin-left: calc(50% - 155px);;
+  margin-left: calc(50% - 155px);
+  top:1066px;
+}
+.gifmodalContainer{
+  position: absolute;
+  bottom: 60px;
+  left: -19px;
+}
+
+.youtubeModalContainer{
+  position: absolute;
+  left: -18px;
+  bottom: 60px;
+}
+
+.error{
+  width: 100%;
+    line-height: 20px;
+    text-align: center;
+    margin-top: calc(50% - 160px);
 }
 
 .youtube_icon {
@@ -42,4 +60,13 @@ Input:focus {
   margin-left: -39px;
   margin-right: 26px;
   z-index: 100;
+}
+.VideoDiv{
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  box-sizing: border-box;
+  display: flex;
+  overflow: auto;
+  margin-left: calc(50% - 300px);
 }

@@ -10,6 +10,7 @@ const YoutubeModal = (props) => {
           <Layout
             show={props.show}
             clicked={props.modalClosed}
+            exit={props.modalExit}
           />
           <div>
             <div className={classes.Modal}>{props.children}</div>
