@@ -73,6 +73,7 @@ Input:focus {
   overflow: auto;
   margin-left: calc(50% - 300px);
   overflow-x: hidden;
+  border: black;
 }
 
 .copyRight {

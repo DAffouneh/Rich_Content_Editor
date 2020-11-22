@@ -19,7 +19,7 @@ import Input from 'react-delay-input';
 
 var GphApiClient = require("giphy-js-sdk-core");
 const App = () => {
-  const KEY = "AIzaSyAIFhYnOW6aKIkJaney9DQSF3GH24oIYYI";
+  const KEY = "AIzaSyC0lAY7iOLOZypsCZsp_yTU41BT0tRZ9Ac";
   const [pageToken, setPageToken] = useState("CAoQAA");
   const [paginate,setPaginate]=useState(0);
   const [videos, setVideos] = useState([]);
@@ -131,8 +131,7 @@ setShowGif(true)
 
   const onSearchChange = (event) => {
    setGifTermSearch(event.target.value);
-   search(gifTermSearch);
-
+   search(event.target.value);
   };
 
   const loadMoreGifs = () => {
@@ -158,6 +157,7 @@ setShowGif(true)
       ></img>
     );
   }
+
 
 
 
@@ -242,7 +242,7 @@ setShowGif(true)
           placeholder={"Search GIPHY..."}
           value={gifTermSearch}
           minLength={1}
-          delayTimeout={500}
+          delayTimeout={300}
           onChange={onSearchChange}
         ></Input>
         {cancel}
@@ -267,6 +267,7 @@ setShowGif(true)
     );
 
   }
+
   return (
     <div>
       {gifdisplay}
