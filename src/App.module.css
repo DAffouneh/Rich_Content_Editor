@@ -61,12 +61,36 @@ Input:focus {
   margin-right: 26px;
   z-index: 100;
 }
-.VideoDiv{
+
+.slectedItems{
+
+  display: flex;
+  flex-direction: column;
   position: absolute;
   width: 600px;
   height: 600px;
   box-sizing: border-box;
-  display: flex;
   overflow: auto;
   margin-left: calc(50% - 300px);
+  overflow-x: hidden;
+}
+
+.copyRight {
+  display: flex;
+  flex-direction: row;
+}
+.CopyRightImg {
+  width: 7px;
+  height: 7px;
+  margin-right: 3px;
+  margin-top: -5px;
+
+}
+
+
+.copyText{
+  font-size: 7px;
+  margin-right: 7px;
+  margin-top: -5px;
+
 }

@@ -10,9 +10,7 @@ const GifSelectedList = ({ gifs }) => {
     );
   });
   return (
-    <div className={classes.OuterDiv}>
-      <div className={classes.InnerDiv}>{GifSelected}</div>
-    </div>
+      <div className={classes.selectedGif}>{GifSelected}</div>
   );
 };
 export default GifSelectedList;

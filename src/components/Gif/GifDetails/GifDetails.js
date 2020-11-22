@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./GifDetails.module.css";
 const GifDetails = ({ gif }) => {
-  if (!video) {
+  if (!gif) {
     return <div></div>;
   }
   const gifImageInfo = gif.images.fixed_height_small;

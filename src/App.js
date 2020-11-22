@@ -13,6 +13,9 @@ import GifList from './components/Gif/GifList/GifList';
 import Search from "./search.svg";
 import Cancel from "./cancel.svg";
 import VideoSelectedList from "./components/Youtube/VideoSelectedList/VideoSelectedList";
+import GifSelectedList from "./components/Gif/GifSelectedList/GifSelectedList";
+import copyright from "./copyright.svg";
+import Input from 'react-delay-input';
 
 var GphApiClient = require("giphy-js-sdk-core");
 const App = () => {
@@ -50,11 +53,12 @@ const App = () => {
         if(res.data.items.length===0)
         {
           setError("NO RESULTS");
-          console.log("No results"+error)
         }
         else {
           setPageToken(res.data.nextPageToken);
           setVideos([...res.data.items]);
+          setError("")
+
         }
         
       }).catch((err)=> 
@@ -85,9 +89,7 @@ const App = () => {
     });
   };
 
-  const search = (event) => {
-    event.preventDefault();
-    setGifTermSearch(event.target.value);
+  const search = (gifTermSearch) => {
     if (gifTermSearch === "") return;
 
     giphy.search("gifs", { q: gifTermSearch }).then((response) => {
@@ -128,13 +130,11 @@ setShowGif(true)
 
 
   const onSearchChange = (event) => {
-    event.stopPropagation();
-    updateQuery(event);
+   setGifTermSearch(event.target.value);
+   search(gifTermSearch);
+
   };
-  const updateQuery = (event) => {
-    setGifTermSearch(event.target.value);
-    search(event);
-  };
+
   const loadMoreGifs = () => {
     setPaginate(paginate + 6);
     loadFeed();
@@ -163,46 +163,38 @@ setShowGif(true)
 
   const spinner = <Spinner></Spinner>;
   let display = null;
-  let videodisplayer=null
   let gifdisplay=null;
-  if (showVideo) {
-    videodisplayer = (
-        <div className={classes.VideoDiv}>
+
+  if(showGif || showVideo)
+  {
+    gifdisplay= <div className={classes.slectedItems}>
+      <p>Selected Items </p>
             <VideoSelectedList videos={selectedVideos} />
-      </div>
-    
-      
-    );
-  } 
-  if (showGif) {
-    gifdisplay = (
-        <div className={classes.VideoDiv}>
-            <VideoSelectedList videos={selectedVideos} />
-      </div>
-    
-      
-    );
-  } 
+            <GifSelectedList gifs={selctedGifs} />
+
+
+    </div>
+
+  }
 
   if(showYoutubeModal){
-// console.log("error"+error)
-//     if(error !== "")
-//     {
-//       display=<div className={classes.youtubeModalContainer}>
-//       <YoutubeModal
-//         show={showYoutubeModal}
-//         modalClosed={modalremovalHandler}
-//         modalExitClosed={modalremovalHandler}
-//       >
-//         <YoutubeSearchBar
-//           clickSearchHandeler={searchHandler}
-//           term={term}
-//         ></YoutubeSearchBar>
-//         <div className={classes.error}>{error}</div>
-//         </YoutubeModal>
-//         </div>
-//     }
-//     else{
+    if(error !== "")
+    {
+      display=<div className={classes.youtubeModalContainer}>
+      <YoutubeModal
+        show={showYoutubeModal}
+        modalClosed={modalremovalHandler}
+        modalExitClosed={modalremovalHandler}
+      >
+        <YoutubeSearchBar
+          clickSearchHandeler={searchHandler}
+          term={term}
+        ></YoutubeSearchBar>
+        <div className={classes.error}>{error}</div>
+        </YoutubeModal>
+        </div>
+    }
+    else{
       display = (
         <div className={classes.youtubeModalContainer}>
         <YoutubeModal
@@ -230,7 +222,7 @@ setShowGif(true)
         </div>
 
       );
-    //  }
+     }
     
   } else if(showGifModal)
   {
@@ -244,18 +236,24 @@ setShowGif(true)
        
       >
         <img src={Search} className={classes.SearchImg}></img>
-       <input
+       <Input
           className={classes.Input}
           type="text"
           placeholder={"Search GIPHY..."}
           value={gifTermSearch}
+          minLength={1}
+          delayTimeout={500}
           onChange={onSearchChange}
-        ></input>
+        ></Input>
         {cancel}
+        <div className={classes.copyRight}><img src={copyright}
+        className={classes.CopyRightImg}
+        ></img>
+        <p className={classes.copyText}>2020 GIPHY , Inc.</p></div>
         <InfiniteScroll
           dataLength={gifs.length}
           next={loadMoreGifs}
-          height={"230px"}
+          height={"200px"}
           hasMore={true}
           loader={spinner}
           scrollThreshold={0.6}
@@ -271,7 +269,7 @@ setShowGif(true)
   }
   return (
     <div>
-      {videodisplayer}  
+      {gifdisplay}
       <div className={classes.footer}>
           {display}
           <img

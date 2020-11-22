@@ -1,6 +1,10 @@
 .Frame {
-    height: 314px;
-    width: 550px;
-    margin: 10px;
+  height: 70px;
+  width: 568px;
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  margin-left: calc(100% - 362px);
+
   }
   
