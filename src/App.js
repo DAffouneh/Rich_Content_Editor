@@ -23,7 +23,7 @@ const App = () => {
   const [pageToken, setPageToken] = useState("CAoQAA");
   const [paginate,setPaginate]=useState(0);
   const [videos, setVideos] = useState([]);
-  const[selectedVideos]=useState([]);
+  const[selectedVideos, setSelectedVideos]=useState([]);
   const [gifs, setGifs] = useState([]);
   const [term, setTerm] = useState("");
   const [showYoutubeModal, setShowYoutubeModal] = useState(false);
@@ -115,14 +115,19 @@ const App = () => {
   };
   const handleVideoSelect = (video) => {
     setSelectedVideo(video);
-    selectedVideos.push(video);
+    let shownVideos = selectedVideos
+    shownVideos.push(video);
+    setSelectedVideos(shownVideos)
+
     setShowVideo(true);
   };
 
   const handleGifSelect =(gif)=> 
   {
 setSelectedGif(gif);
-selctedGifs.push(gif);
+let shownGifs = selectedVideos
+shownGifs.push(gif);
+setSelectedVideos(shownGifs);
 setShowGif(true)
 
   }
@@ -169,8 +174,8 @@ setShowGif(true)
   {
     gifdisplay= <div className={classes.slectedItems}>
       <p>Selected Items </p>
-            <VideoSelectedList videos={selectedVideos} />
-            <GifSelectedList gifs={selctedGifs} />
+            <VideoSelectedList videos={selectedVideos}s />
+            {/* <GifSelectedList gifs={selctedGifs} /> */}
 
 
     </div>

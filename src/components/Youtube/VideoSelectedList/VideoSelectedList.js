@@ -1,12 +1,21 @@
 import React from "react";
 import VideoDetail from "../VideoDetail/VideoDetail";
+import GifDetail from "..//GifDetails/GifDetails";
 import classes from "./VideoSelectedList.module.css";
-const VideoSelectedList = ({ videos }) => {
-  const videoSelected = videos.map((video) => {
+
+const VideoSelectedList = ({ item, flag }) => {
+  const videoSelected = item.map((item) => {
+    
     return (
-      <div key={video.id.videoId}>
-        <VideoDetail video={video} />
-      </div>
+      flag === 'video' ?
+      <div key={item.id.videoId}>
+        <VideoDetail video={item} />
+      </div> : flag === 'gif' &&
+      
+      <div key={item.id}>
+      <GifDetail gif={item} />
+    </div> 
+
     );
   });
   return (
