@@ -1,0 +1,17 @@
+.FooterBarContainer{
+        margin-top: 1rem;
+        position: relative;
+        width: 300px;
+        border-bottom: 1px solid black;
+        border-top: 1px solid black;
+        display: flex;
+        flex-direction: row;
+        padding: 5px;
+        margin-left: calc(50% - 155px);
+        top:1066px;
+        justify-content: center;
+}
+.pluginIconContainer{
+    margin-right: 10px;
+}
+

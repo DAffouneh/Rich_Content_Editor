@@ -1,12 +1,12 @@
 import React from "react";
 import classes from "./YoutubeModal.module.css";
 import Layout from "../Layout/Layout";
-import classes1 from "../../App.module.css";
 const YoutubeModal = (props) => {
   return (
-    props.show && (
+    // props.show && (
+      <div style={{position:"absolute",bottom: "65px",
+      left: "100px"}}>
       <div>
-        <div>
           <Layout
             show={props.show}
             clicked={props.modalClosed}
@@ -19,7 +19,7 @@ const YoutubeModal = (props) => {
         <div className={classes.Triangle}></div>
       </div>
     )
-  );
+ // );
 };
 
 export default YoutubeModal;

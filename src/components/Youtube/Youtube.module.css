@@ -1,0 +1,11 @@
+.error{
+    width: 100%;
+      line-height: 20px;
+      text-align: center;
+      margin-top: calc(50% - 160px);
+  }
+  .youtubeModalContainer{
+    position: absolute;
+    left: -18px;
+    bottom: 60px;
+  }

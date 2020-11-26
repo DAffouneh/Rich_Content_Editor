@@ -5,16 +5,10 @@ import classes from "./VideoSelectedList.module.css";
 
 const VideoSelectedList = ({ items, flag }) => {
   let GifSelected = null;
-  if (flag === "gif") {
+
+  if (flag === "video") {
     GifSelected = items.map((item) => {
-      return (
-        <div key={item.id}>
-          <GifDetail gif={item} />
-        </div>
-      );
-    });
-  } else if (flag === "video") {
-    GifSelected = items.map((item) => {
+      console.log(item)
       return (
         <div key={item.id.videoId}>
           <VideoDetail video={item} />
@@ -22,20 +16,16 @@ const VideoSelectedList = ({ items, flag }) => {
       );
     });
   }
-
-  // const videoSelected = items.map((item) => {
-  //   return flag === "video" ? (
-  //     <div key={item.id.videoId}>
-  //       <VideoDetail video={item} />
-  //     </div>
-  //   ) : (
-  //     flag === "gif" && (
-  //       <div key={item.id}>
-  //         <GifDetail gif={item} />
-  //       </div>
-  //     )
-  //   );
-  // });
+  else  {
+    GifSelected = items.map((item) => {
+      console.log(item)
+      return (
+        <div key={item.id}>
+          <GifDetail gif={item} />
+        </div>
+      );
+    });
+  } 
   return (
     <div className={classes.OuterDiv}>
       <div className={classes.InnerDiv}>{GifSelected}</div>
